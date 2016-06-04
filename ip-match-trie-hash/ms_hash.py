@@ -56,7 +56,7 @@ for ip in ips_bit:
     min_match = None
 
     prefix = ''
-    for c in ip:
+    for c in ip+' ':
         match = find(prefix)
         if match:
             result.append(match)
