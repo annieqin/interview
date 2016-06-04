@@ -11,20 +11,19 @@ nrules, nips = [int(i) for i in content[0].split()]
 rules = content[1:1+nrules]
 ips = content[1+nrules:1+nrules+nips]
 
-table = collections.defaultdict(list)
+table = {}
 count = 0
 
 
 def insert(ip_bit, value):
-    table[ip_bit].append(value)
+    if not table.get(ip_bit):
+        table[ip_bit] = value
 
 
 def find(prefix):
-    ll = table.get(prefix, None)
-    if ll:
-        for rule in ll:
-            if prefix == rule[2]:
-                return rule
+    rule = table.get(prefix, None)
+    if rule:
+            return rule
     return None
 
 
@@ -48,8 +47,6 @@ for ip in ips:
     ip_bit = ''.join([bin(int(k))[2:].zfill(8) for k in ip.split('.')])
     ips_bit.append(ip_bit)
 
-print table
-
 for ip in ips_bit:
     result = []
     min_id = float("inf")
@@ -61,7 +58,6 @@ for ip in ips_bit:
         if match:
             result.append(match)
         prefix += c
-    print result
     if result:
         for i in result:
             if i[0] < min_id:
