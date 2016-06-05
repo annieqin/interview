@@ -22,10 +22,7 @@ def insert(ip_bit, value):
 
 def find(prefix):
     rule = table.get(prefix, None)
-    if rule:
-            return rule
-    return None
-
+    return rule if rule else None
 
 for rule in rules:
     count += 1
@@ -35,10 +32,7 @@ for rule in rules:
         re_ip = re.search('\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}[\s\S]*', rule)
         if re_ip:
             ip = re_ip.group()
-            if '/' in ip:
-                mask = int(ip.split('/')[1])
-            else:
-                mask = 32
+            mask = int(ip.split('/')[1]) if '/' in ip else 32
             ip_bit = ''.join([bin(int(i))[2:].zfill(8) for i in ip.split('/')[0].split('.')])[:mask]
             insert(ip_bit, (count, type, ip_bit))
 
