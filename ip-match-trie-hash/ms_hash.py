@@ -2,7 +2,6 @@
 
 __author__ = 'AnnieQin <annie__qin@163.com>'
 
-import collections
 import sys
 import re
 
@@ -36,18 +35,15 @@ for rule in rules:
             ip_bit = ''.join([bin(int(i))[2:].zfill(8) for i in ip.split('/')[0].split('.')])[:mask]
             insert(ip_bit, (count, type, ip_bit))
 
-ips_bit = []
+
 for ip in ips:
     ip_bit = ''.join([bin(int(k))[2:].zfill(8) for k in ip.split('.')])
-    ips_bit.append(ip_bit)
-
-for ip in ips_bit:
     result = []
     min_id = float("inf")
     min_match = None
 
     prefix = ''
-    for c in ip+' ':
+    for c in ip_bit+' ':
         match = find(prefix)
         if match:
             result.append(match)
