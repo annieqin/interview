@@ -10,6 +10,9 @@ ngifts, ncoupons = [int(i) for i in content[0].split()]
 need = []
 value = []
 
+opt = {}
+
+
 for i in range(1, ngifts+1):
     need.append(int(content[i].split()[0]))
     value.append(int(content[i].split()[1]))
@@ -18,6 +21,8 @@ for i in range(1, ngifts+1):
 def cal(m, n):
     if n >= ngifts or m <= 0:
         return 0
+    if opt.get((m, n)):
+        return opt[(m, n)]
     else:
         ret = -1
         for k in range(2):
@@ -25,7 +30,8 @@ def cal(m, n):
             if m - k*need[n] >= 0:
                 temp += value[n]*k
                 if temp > ret:
-                    ret = temp
+                   ret = temp
+        opt[(m, n)] = ret
         return ret
 
 print cal(ncoupons, 0)
