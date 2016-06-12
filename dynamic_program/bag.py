@@ -24,7 +24,7 @@ def cal(m, n):
     if opt.get((m, n)):
         return opt[(m, n)]
     else:
-        ret = -1
+        ret = 0
         for k in range(2):
             temp = cal(m - k*need[n], n+1)
             if m - k*need[n] >= 0:
